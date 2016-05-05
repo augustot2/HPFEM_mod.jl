@@ -30,7 +30,7 @@ function lagrange_oed_plot(M,Q,nel,fun,resp,a=-1,b=1,idir=[1 nel],nξ = 101)
       HPFEM.add_local_matrix(solver, e, Ae)
   end
 
-  bnd = HPFEM.bndry_idx(lmap)
+  bnd = HPFEM.bndidx(lmap)
 
   Fe = zeros(HPFEM.nmodes(lmap), nel)
 
@@ -114,25 +114,12 @@ function lagrange_aprox_plot(M,Q,nel,fun,a=-1,b=1,idir=[1,nel],nξ = 101)
         plot(x[e],Ue[:,e], "--",color = cores)
         #legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     end
-    suptitle("M = $M , Q=$Q, Nel = $nel")
-    title("erro = $maxerr")
+    #suptitle("M = $M , Q=$Q, Nel = $nel")
+    title("N = $M , Nel = $nel")
+    #title("erro = $maxerr")
 
     return [maxerr HPFEM.nslvmodes(dof)]
 
     return 0
 
-end
-
-
-function get_dof(M,Q,nel,fun,resp,a=-1,b=1,idir=[1 nel],nξ = 101)
-  nnodes = nel + 1
-  nodes = collect(linspace(a, b, nnodes));
-
-  lagr = HPFEM.Lagrange1d(M);
-  quad = HPFEM.QuadType(Q);
-  base = HPFEM.Basis1d(lagr, quad);
-
-  lmap = HPFEM.locmap(base)
-  dof = HPFEM.DofMap1d(lmap, nnodes, idir);
-  return dof
 end

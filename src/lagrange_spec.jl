@@ -39,7 +39,7 @@ function lagrange_aprox_spec(M,Q,nel,fun,a=-1,b=1,idir=[1,nel],nξ = 101)
     end
 
     return [maxerr HPFEM.nslvmodes(dof)]
-
+    #return maxerr
 end
 
 
@@ -65,7 +65,7 @@ function lagrange_oed_spec(M,Q,nel,fun,resp,a=-1,b=1,idir=[1 nel],nξ = 101)
       HPFEM.add_local_matrix(solver, e, Ae)
   end
 
-  bnd = HPFEM.bndry_idx(lmap)
+  bnd = HPFEM.bndidx(lmap)
 
   Fe = zeros(HPFEM.nmodes(lmap), nel)
 
@@ -99,5 +99,6 @@ function lagrange_oed_spec(M,Q,nel,fun,resp,a=-1,b=1,idir=[1 nel],nξ = 101)
   end
 
   return [maxerr HPFEM.nslvmodes(dof)]
+  #return maxerr
 
 end
