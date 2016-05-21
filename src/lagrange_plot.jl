@@ -92,6 +92,7 @@ function lagrange_aprox_plot(M,Q,nel,fun,a=-1,b=1,idir=[1,nel],nξ = 101)
         fe = fun(elemento[e].x)
         HPFEM.add_rhs!(base, elemento[e], fe, sub(Fe, :, e))
     end
+
     HPFEM.solve!(solver, Fe)
 
     nξ = 101
